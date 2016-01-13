@@ -11,7 +11,7 @@ var userController = require('../controllers/userControllers.js');
 console.log('using router...')
 
 //////////////////
-//users 
+//users  ---------------------------------------------------------------------------------------
 //////////////////
 
 //get all users. not usually useful
@@ -29,20 +29,21 @@ router.route('/users')
 //create user
 router.route('/users')
   .post(function (req, res) {
-    //example:
+    
     console.log("post to /users", req.body.username,req.body.password);
     var newuser = {
       username: req.body.username,
       password: req.body.password,
-      pins: []
+      createdRaces: []
     }
 
-    userController.addUser(newuser, function(err, pins){
+    //When adding user to the controller, returns the empty created races array
+    userController.addUser(newuser, function(err, createdRaces){
        if (err) {
         console.log(err);
         return res.json({err: err});
       }
-      res.status(201).json(pins);
+      res.status(201).json(createdRaces);
     });
   });
 
@@ -58,8 +59,102 @@ router.route('/users')
   });
 
 //////////////////
-//pins
+//Races ---------------------------------------------------------------------------------------
 //////////////////
+
+
+router.route('/users/:user_id/races')
+  //create new race  
+  .post(function (req, res) {
+    var newRace = {
+      creator: req.params.user_id,
+      waymarks: req.body.waymarks,
+      start_location: req.body.waymarks[0],
+      racers: [], //users participating in race
+      results: [], // result of race
+      date: req.body.date,
+      time: req.body.time
+    }
+
+    //when you create the race, the user needs all of the user's races
+    raceController.addOne(newRace, function(err, createdRace){
+      if (err) {
+        return res.json({err: err});
+      }
+      res.json(createdRace);
+    })
+  });
+
+  //get races created by user || get races by proximity
+  .get(function (req, res) {
+    var dbQueryParams = {};
+    dbQueryParams.creator = req.params.user_id;
+
+    if(req.query.lat) {
+      dbQueryParams.lat = req.query.lat;
+      dbQueryParams.lng = req.query.lng;
+      dbQueryParams.proximity = req.query.proximity;  
+    }
+    
+    raceController.find(dbQueryParams, function(err, usersRaces) {
+      if (err) {
+        res.json({err: err});
+      }
+      res.json(usersRaces);
+    });
+  });
+
+//get one race by ID
+router.route('/users/:user_id/races/:race_id')
+  
+  //find race by race ID, return the found race
+  .get(function(req, res) {
+    var race_id = req.params.race_id;
+    
+    raceController.findOne({race_id: race_id}, function(err, race){
+      if (err) {
+        res.json({err:err});
+      }
+      res.json(race);
+    });
+  })
+
+  //User has added themselves to the racers on client side, and now editing the race model
+  .put(function(req, res) {
+    var race_id = req.params.race_id;
+    var newRace = req.body;
+
+    raceController.updateRace({race_id: race_id}, newRace, function (err, updatedRace) {
+      if (err) {
+        res.json({err: err});
+      }
+      res.json(updatedRace);
+    })
+  })
+
+
+router.route('/users/:user_id/races')
+  .get(function(req, res) {
+    
+
+    raceController.findByProximity({}, function(err, closeRaces) {
+      if (err) {
+        res.json({err: err});
+      }
+      res.json(closeRaces);
+    })
+
+  });
+
+
+
+
+
+
+
+
+
+
 
 //get array of pins for single user
 router.route('/maps/:username')
