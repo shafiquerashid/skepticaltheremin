@@ -126,7 +126,7 @@ router.route('/users/:user_id/races/:race_id')
   //User has added themselves to the racers on client side, and now editing the race model
   .put(function(req, res) {
     var race_id = req.params.race_id;
-    var newRace = req.body;
+    var newRace = req.body[0];
 
     raceController.updateRace({_id: race_id}, newRace, function (err, updatedRace) {
       if (err) {

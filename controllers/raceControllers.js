@@ -101,13 +101,13 @@ exports.findOne = function (raceIdObj, callback) {
 	})
 }
 
-exports.updateRace = function (newRace, callback) {
-	var race_id = newRace._id;
-	Race.findOneAndUpdate({_id: race_id}, newRace, function (err, updatedRace) {
+exports.updateRace = function (queryParams, newRace, callback) {
+	Race.findOneAndUpdate(queryParams, newRace, function (err, updatedRace) {
 		if (err) {
 			callback(err);
 			return;
 		}
+		console.log(updatedRace.racers);
 		callback(null, updatedRace);
 	});
 }
