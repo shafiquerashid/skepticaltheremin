@@ -4,15 +4,16 @@ module.exports = {
   //LOGIN, LOGOUT
   authAction: require('./auth-action'),
 
+  
   //NAV_CREATE_RACE, NAV_CREATED_RACES,
   //NAV_SUMMARY, NAV_RACE
-  navigateToAction: require('./navigate-to-action'),
+  navigateToAction: require('./navigate-to-action'), //DONE
 
   //CENTER_MAP, ADD_WAYPOINT, PUBLISH_RACE, CLEAR_FORM
-  publishAction: require('./publish-action'),
+  publishAction: require('./publish-action'), //DONE
 
   // CHECK_IN, ENABLE_CHECK_IN
-  checkInAction: require('./check-in-action'),
+  checkInAction: require('./check-in-action'), 
 
   // TIMER_START, TIMER_FINISH
   timerAction: require('./timer-action'),
