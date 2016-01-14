@@ -38,7 +38,6 @@ exports.find = function(searchParams, callback) {
 				callback(err);
 				return;
 			}
-			console.log(usersRaces);
 			callback(null, usersRaces);
 		})
 	} else {
@@ -48,11 +47,14 @@ exports.find = function(searchParams, callback) {
 		var time = searchParams.time; //string
 
 
+
+
 		Race.find({start_loc: {$near: coords, $maxDistance: maxDistance}}, function (err, closebyRaces) {
 			if (err) {
 				callback(err);
 				return;
 			}
+			console.log(closebyRaces);
 			//filter for ones that start the same day
 			//filter for ones that start after && within time
 			var closebyRacesToday = closebyRaces.filter(function (race) {
