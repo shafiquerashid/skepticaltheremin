@@ -1,3 +1,38 @@
 'use strict';
 
-var ACTION_TYPE = require('../constants').action.ACTION_TYPE;
+var _ = require('lodash');
+
+var CENTER_MAP = require('../constants').action.CENTER_MAP;
+var ADD_WAYPOINT = require('../constants').action.ADD_WAYPOINT;
+var PUBLISH_RACE = require('../constants').action.PUBLISH_RACE;
+
+var initial =  {
+    name: '',
+    dateTime: new Date(),
+    waymarks: [],
+    latitude: 37.7836966,
+    longitude: -122.4089664
+  };
+
+// switch statement thing
+
+function raceReducer(state, action){
+  state = state || initial;
+  switch(action.type){
+    case CENTER_MAP:
+      return _.extend({}, state, {
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude,
+      });
+    case ADD_WAYPOINT:
+      return _.extend({}, state, {
+        waymarks: state.waymarks.concat([action.payload.waymark])
+      });
+    case PUBLISH_RACE://click the submit button
+      return _.extend({}, initial);
+    default:
+      return inital;
+  }
+}
+
+module.exports = raceReducer;
