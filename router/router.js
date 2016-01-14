@@ -91,6 +91,7 @@ router.route('/users/:user_id/races')
 
   //get races created by user || get races by proximity
   .get(function (req, res) {
+
     var dbQueryParams = {};
     dbQueryParams.creator = req.params.user_id;
 
@@ -99,6 +100,7 @@ router.route('/users/:user_id/races')
       dbQueryParams.lng = req.query.lng;
       dbQueryParams.proximity = req.query.proximity;  
     }
+
     
     raceController.find(dbQueryParams, function(err, usersRaces) {
       if (err) {
@@ -110,18 +112,6 @@ router.route('/users/:user_id/races')
 
 //get one race by ID
 router.route('/users/:user_id/races/:race_id')
-  
-  //find race by race ID, return the found race
-  .get(function(req, res) {
-    var race_id = req.params.race_id;
-    
-    raceController.findOne({_id: race_id}, function(err, race){
-      if (err) {
-        res.json({err:err});
-      }
-      res.json(race);
-    });
-  })
 
   //User has added themselves to the racers on client side, and now editing the race model
   .put(function(req, res) {
@@ -139,9 +129,20 @@ router.route('/users/:user_id/races/:race_id')
 
 router.route('/users/:user_id/races')
   .get(function(req, res) {
+    console.log(req.params);
     
+    var searchParams = {
+      _id: req.params.user_id,
+    }
+    if (req.params.lat) {
+      searchParams.lat = req.params.lat;
+      searchParams.lng = req.params.lng;
+      searchParams.proximity = req.params.lng;
+      searchParams.date = req.params.date;
+      searchParams.time = req.params.time;
+    }
 
-    raceController.findByProximity({}, function(err, closeRaces) {
+    raceController.find(searchParams, function(err, closeRaces) {
       if (err) {
         res.json({err: err});
       }

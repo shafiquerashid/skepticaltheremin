@@ -32,12 +32,13 @@ exports.addOne = function(newRace, callback) {
 exports.find = function(searchParams, callback) {
 
 	//look for all races by user
-	if (searchParams.lat !== undefined) {
+	if (searchParams.lat === undefined) {
 		Race.find(searchParams, function (err, usersRaces) {
 			if (err) {
 				callback(err);
 				return;
 			}
+			console.log(usersRaces);
 			callback(null, usersRaces);
 		})
 	} else {
