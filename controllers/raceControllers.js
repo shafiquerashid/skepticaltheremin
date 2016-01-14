@@ -1,9 +1,4 @@
-/*
-addOne -0
-find --
-findOne --
-updateRace --
-*/
+
 
 var mongoose = require('mongoose');
 
@@ -11,7 +6,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user.js');
 var Pin = require('../models/pin.js');
 var Race = require('../models/race.js');
-var userController = require('../controllers/userController.js');
+var userController = require('./userControllers.js');
 
 
 //Add one race
@@ -23,7 +18,7 @@ exports.addOne = function(newRace, callback) {
 		}
 
 		var user_id = newRace.creator;
-		User.findOneAndUpdate({user_id:user_id}, {$push:{createdRaces: race}}, function(err, result) {
+		User.findOneAndUpdate({_id:user_id}, {$push:{createdRaces: race}}, function(err, result) {
 			if (err) {
 				callback(err);
 				return;

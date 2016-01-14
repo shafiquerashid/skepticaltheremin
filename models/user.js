@@ -3,9 +3,8 @@ var mongoose = require('mongoose');
 
 
 
-
 var userSchema = new mongoose.Schema({
-  username: { type: String, index: { unique: true } },
+  username: {type: String, index: {unique: true}},
   password: String,
   createdRaces: Array
 });

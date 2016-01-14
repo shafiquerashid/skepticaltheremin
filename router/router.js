@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 var router = express.Router();
 var userController = require('../controllers/userControllers.js');
+var raceController = require('../controllers/raceControllers.js');
 //*Requirerd by server.js*
 
 console.log('using router...');
@@ -38,12 +39,12 @@ router.route('/users')
     }
 
     //When adding user to the controller, returns the empty created races array
-    userController.addUser(newuser, function(err, createdRaces){
+    userController.addUser(newuser, function(err, user){
        if (err) {
         console.log(err);
         return res.json({err: err});
       }
-      res.status(201).json(createdRaces);
+      res.status(201).json(user);
     });
   });
 
@@ -67,7 +68,7 @@ router.route('/users/:user_id/races')
   //create new race  
   .post(function (req, res) {
     var newRace = {
-      creator: req.params.user_id,
+      creator: parseInt(req.params.user_id),
       waymarks: req.body.waymarks,
       start_location: req.body.waymarks[0],
       racers: [], //users participating in race
@@ -76,6 +77,8 @@ router.route('/users/:user_id/races')
       time: req.body.time
     }
 
+    console.log('newRace',newRace);
+
     //when you create the race, the user needs all of the user's races
     raceController.addOne(newRace, function(err, createdRace){
       if (err) {
@@ -83,7 +86,7 @@ router.route('/users/:user_id/races')
       }
       res.json(createdRace);
     })
-  });
+  })
 
   //get races created by user || get races by proximity
   .get(function (req, res) {
