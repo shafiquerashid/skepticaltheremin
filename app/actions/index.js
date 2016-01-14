@@ -21,6 +21,5 @@ module.exports = {
   raceAction: require('./race-action'),
 
   // LOCATION_CHANGE
-  locationChange: require('./location-change'),
+  locationChangeAction: require('./location-change-action'),
 };
-'use strict';\nvar type = require('../constants').action.type;

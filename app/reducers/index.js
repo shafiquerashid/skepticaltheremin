@@ -5,4 +5,3 @@ module.exports = {
   newRace: require('./new-race-reducer'),
   activeRace: require('./active-race-reducer')
 };
-'use strict';
