@@ -21,5 +21,11 @@ module.exports = {
     LOCATION_CHANGE: 'LOCATION_CHANGE',
     CLEAR_FORM: 'CLEAR_FORM'
   }
+  view: {
+    CREATE: 'CREATE',
+    RACE: 'RACE',
+    SUMMARY: 'SUMMARY',
+    CREATED_RACE_LIST: 'CREATED_RACE_LIST'
+  }
 };
 

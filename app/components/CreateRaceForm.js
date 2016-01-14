@@ -20,17 +20,24 @@ var CreateRaceForm = React.createClass({
       console.log('STATE IS', this.state)
     },
 
-  handleChange(e){
-      console.log(e.target.value);
-      console.log('STATE IS', this.state);
+  handleNameChange(e){
+      return e.target.value;
+  },
+
+  handleSubmit(e){
+    e.preventDefault();
+    console.log(e);
+    //e.target is array of internal inputs
+    //e.g. e.target[0].value === "Race Name" by default
+    //dispatch(index.publishAction.publishRace({stuff}));
   },
 
   render(){
     return (
-     <form onChange={this.handleChange}>
-        <input type="text" name='Name' defaultValue='Race Name'></input>
-        <input type="date" name='date'></input>
-        <input type="time" name='time'></input>
+     <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+        <input type="text" name='Name' defaultValue='Race Name' ></input>
+        <input type="date" name='date' ></input>
+        <input type="time" name='time' ></input>
         <input type="submit"></input>
     </form >
     )
