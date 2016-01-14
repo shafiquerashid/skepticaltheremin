@@ -71,7 +71,7 @@ router.route('/users/:user_id/races')
     var newRace = {
       creator: req.params.user_id,
       waymarks: req.body.waymarks,
-      start_location: req.body.waymarks[0],
+      start_location: {coordinates: req.body.waymarks[0]},
       racers: [], //users participating in race
       results: [], // result of race
       date: req.body.date,
@@ -98,7 +98,10 @@ router.route('/users/:user_id/races')
     if(req.query.lat) {
       dbQueryParams.lat = req.query.lat;
       dbQueryParams.lng = req.query.lng;
-      dbQueryParams.proximity = req.query.proximity;  
+      dbQueryParams.proximity = req.query.proximity;
+      dbQueryParams.date = req.query.date;
+      dbQueryParams.time = req.query.time;
+      dbQueryParams.timeLimit = req.query.timelimit;
     }
 
     
@@ -125,33 +128,6 @@ router.route('/users/:user_id/races/:race_id')
       res.json(updatedRace);
     })
   })
-
-
-router.route('/users/:user_id/races')
-  .get(function(req, res) {
-    console.log(req.params);
-    
-    var searchParams = {
-      _id: req.params.user_id,
-    }
-    if (req.params.lat) {
-      searchParams.lat = req.params.lat;
-      searchParams.lng = req.params.lng;
-      searchParams.proximity = req.params.lng;
-      searchParams.date = req.params.date;
-      searchParams.time = req.params.time;
-    }
-
-    raceController.find(searchParams, function(err, closeRaces) {
-      if (err) {
-        res.json({err: err});
-      }
-      res.json(closeRaces);
-    })
-
-  });
-
-
 
 
 

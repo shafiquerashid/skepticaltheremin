@@ -42,26 +42,38 @@ exports.find = function(searchParams, callback) {
 		})
 	} else {
 		var coords = [parseInt(searchParams.lat), parseInt(searchParams.lng)];
-		var maxDistance = parseInt(searchParams.proximity)/6371;
+		var maxDistance = parseInt(searchParams.proximity)*1000;
 		var date = searchParams.date; //string
 		var time = searchParams.time; //string
+		var limit = searchParams.timeLimit; //timeLimit in Minutes
 
 
-
-
-		Race.find({start_loc: {$near: coords, $maxDistance: maxDistance}}, function (err, closebyRaces) {
+		Race.find({
+			start_location:{
+				$near: {
+					$geometry: {
+						type: "Point",
+						coordinates: coords
+					},
+					$maxDistance: maxDistance
+				}	
+			}
+		},
+		function (err, closebyRaces) {
 			if (err) {
 				callback(err);
 				return;
 			}
-			console.log(closebyRaces);
 			//filter for ones that start the same day
 			//filter for ones that start after && within time
 			var closebyRacesToday = closebyRaces.filter(function (race) {
 				if (race.date === date) {
 					return true;
+				} else {
+					return false;
 				}
 			});
+
 			
 			var convertStringTimeToSeconds = function(string) {
 				var timeArray = [];
@@ -78,15 +90,21 @@ exports.find = function(searchParams, callback) {
 
 				var totalSeconds = 0;
 				for (var i = 0; i < timeArray.length; i++) {
-					totalSeconds += timeArray[0]*Math.pow(60,(2-i));
+					totalSeconds += timeArray[i]*Math.pow(60,(2-i));
 				}
+
 				return totalSeconds;
 			}
 			//returns races occuring in the next 30 minutes // should be specified later by a req.param
+			
 			time = convertStringTimeToSeconds(time);
+
 			var closebyRacesTodaySoon = closebyRacesToday.filter(function (race) {
-				if((convertStringTimeToSeconds(race.time)-time) < 3600) {
+				var raceTime = convertStringTimeToSeconds(race.time);
+				if((raceTime-time) < limit*60) {
 					return true;
+				} else {
+					return false;
 				}
 			});
 			callback(null, closebyRacesTodaySoon);

@@ -5,8 +5,11 @@ var raceSchema = new mongoose.Schema({
 	creator: String,
 	waymarks: Array,
 	start_location: {
-		type: [Number],
-		index: '2d'
+		type:{	
+			type: String,
+			default: "Point"
+		},
+		coordinates: [Number]
 	},
 	racers: Array,
 	results: Array,
