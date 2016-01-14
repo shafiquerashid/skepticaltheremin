@@ -7,6 +7,7 @@ var LocationList = require('./LocationList');
 var SearchUser = require('./SearchUser');
 var helpers = require('../utils/helpers');
 var Signup = require('./Signup');
+var CreateRaceForm = require('./CreateRaceForm');
 
 
 var CreateRace = React.createClass({
@@ -121,6 +122,9 @@ var CreateRace = React.createClass({
         <div>
           <h1 className="col-xs-12 col-md-6 col-md-offset-3">Create a Race</h1>
           <Search onSearch={this.searchForAddress} />
+
+          <CreateRaceForm />
+
           <Map lat={this.state.mapCoordinates.lat}
             lng={this.state.mapCoordinates.lng}
             favorites={this.state.favorites}
