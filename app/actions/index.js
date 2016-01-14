@@ -13,14 +13,14 @@ module.exports = {
   publishAction: require('./publish-action'), //DONE
 
   // CHECK_IN, ENABLE_CHECK_IN
-  checkInAction: require('./check-in-action'), 
+  checkInAction: require('./check-in-action'), //DONE
 
   // TIMER_START, TIMER_FINISH
-  timerAction: require('./timer-action'),
+  timerAction: require('./timer-action'), 
 
   // START_RACE, FINISH_RACE, CANCEL_RACE
-  raceAction: require('./race-action'),
+  raceAction: require('./race-action'), 
 
   // LOCATION_CHANGE
-  locationChangeAction: require('./location-change-action'),
+  locationChangeAction: require('./location-change-action') 
 };

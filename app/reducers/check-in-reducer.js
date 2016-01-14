@@ -6,7 +6,9 @@ function checkInReducer (state, action) {
 	switch(action.type){
 		case CHECK_IN:
 			return _.extend({}, state, {
-				checkedIn: true
+				activeRace:{
+					checkedIn: true
+				}
 			})
 	}
 }

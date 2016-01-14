@@ -12,17 +12,17 @@ var PUBLISH_RACE = require('../constants').action.PUBLISH_RACE;
 
 // payload looks like: {latitude, longitude}
 function centerMap(payload){
-  {
+  return {
     type: CENTER_MAP,
     payload: payload
   };
 };
 
 function addWayPoint(payload){
-   dispatch({
+   return {
     type: ADD_WAYPOINT,
     payload: payload
-  });
+  };
 }
 
 function clearForm(){
