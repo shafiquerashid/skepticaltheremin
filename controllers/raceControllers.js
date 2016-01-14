@@ -1,6 +1,6 @@
 /*
 addOne -0
-find -*
+find --
 findOne --
 updateRace --
 */
@@ -33,7 +33,7 @@ exports.addOne = function(newRace, callback) {
 	});
 };
 
-//Find race by user id || proximity .-.
+//Find race by user id || proximity AND TIME AHHHH, which comes in as a string LOL .-.
 exports.find = function(searchParams, callback) {
 
 	//look for all races by user
@@ -80,16 +80,17 @@ exports.find = function(searchParams, callback) {
 
 				var totalSeconds = 0;
 				for (var i = 0; i < timeArray.length; i++) {
-					
+					totalSeconds += timeArray[0]*Math.pow(60,(2-i));
 				}
-
+				return totalSeconds;
 			}
 			//returns races occuring in the next 30 minutes // should be specified later by a req.param
+			time = convertStringTimeToSeconds(time);
 			var closebyRacesTodaySoon = closebyRacesToday.filter(function (race) {
-				time = time.split(' ')
-			})
-
-			
+				if((convertStringTimeToSeconds(race.time)-time) < 3600) {
+					return true;
+				}
+			});
 			callback(null, closebyRacesTodaySoon);
 		});
 	}
