@@ -1,9 +1,8 @@
 /*
-addOne -- 
-find
-findOne
-updateRace
-findByProximity
+addOne -0
+find -*
+findOne --
+updateRace --
 */
 
 var mongoose = require('mongoose');
@@ -22,8 +21,15 @@ exports.addOne = function(newRace, callback) {
 			callback(err);
 			return;
 		}
-		//get and append the race id to teh user
-		callback(null, race);
+
+		var user_id = newRace.creator;
+		User.findOneAndUpdate({user_id:user_id}, {$push:{createdRaces: race}}, function(err, result) {
+			if (err) {
+				callback(err);
+				return;
+			}
+			callback(null, race);	
+		});
 	});
 };
 
@@ -40,12 +46,73 @@ exports.find = function(searchParams, callback) {
 			callback(null, usersRaces);
 		})
 	} else {
-		Race.find({}//look by proximity
+		var coords = [parseInt(searchParams.lat), parseInt(searchParams.lng)];
+		var maxDistance = parseInt(searchParams.proximity)/6371;
+		var date = searchParams.date; //string
+		var time = searchParams.time; //string
 
 
+		Race.find({start_loc: {$near: coords, $maxDistance: maxDistance}}, function (err, closebyRaces) {
+			if (err) {
+				callback(err);
+				return;
+			}
+			//filter for ones that start the same day
+			//filter for ones that start after && within time
+			var closebyRacesToday = closebyRaces.filter(function (race) {
+				if (race.date === date) {
+					return true;
+				}
+			});
+			
+			var convertStringTimeToSeconds = function(string) {
+				var timeArray = [];
+				string = string.split('');
+
+				for(var i = 0; i < string.length; i++) {
+					if (i%2 === 0) {
+						timeArray[i/2] = string[i];
+					} else {
+						timeArray[(i-1)/2] += string[i];
+						timeArray[(i-1)/2] = parseInt(timeArray[(i-1)/2]);
+					}
+				}
+
+				var totalSeconds = 0;
+				for (var i = 0; i < timeArray.length; i++) {
+					
+				}
+
+			}
+			//returns races occuring in the next 30 minutes // should be specified later by a req.param
+			var closebyRacesTodaySoon = closebyRacesToday.filter(function (race) {
+				time = time.split(' ')
+			})
+
+			
+			callback(null, closebyRacesTodaySoon);
+		});
 	}
 }
 
+exports.findOne = function (raceIdObj, callback) {
+	Race.find(raceIdObj, function (err, race) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null, race);
+	})
+}
 
-
+exports.updateRace = function (newRace, callback) {
+	var race_id = newRace._id;
+	Race.findOneAndUpdate({_id: race_id}, newRace, function (err, updatedRace) {
+		if (err) {
+			callback(err);
+			return;
+		}
+		callback(null, updatedRace);
+	});
+}
 

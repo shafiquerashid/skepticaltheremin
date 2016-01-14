@@ -8,7 +8,7 @@ var router = express.Router();
 var userController = require('../controllers/userControllers.js');
 //*Requirerd by server.js*
 
-console.log('using router...')
+console.log('using router...');
 
 //////////////////
 //users  ---------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ router.route('/users/:user_id/races/:race_id')
   .get(function(req, res) {
     var race_id = req.params.race_id;
     
-    raceController.findOne({race_id: race_id}, function(err, race){
+    raceController.findOne({_id: race_id}, function(err, race){
       if (err) {
         res.json({err:err});
       }
@@ -124,7 +124,7 @@ router.route('/users/:user_id/races/:race_id')
     var race_id = req.params.race_id;
     var newRace = req.body;
 
-    raceController.updateRace({race_id: race_id}, newRace, function (err, updatedRace) {
+    raceController.updateRace({_id: race_id}, newRace, function (err, updatedRace) {
       if (err) {
         res.json({err: err});
       }
