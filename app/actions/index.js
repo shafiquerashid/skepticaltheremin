@@ -8,7 +8,7 @@ module.exports = {
   //NAV_SUMMARY, NAV_RACE
   navigateToAction: require('./navigate-to-action'),
 
-  //CENTER_MAP, ADD_WAYPOINT, PUBLISH_RACE
+  //CENTER_MAP, ADD_WAYPOINT, PUBLISH_RACE, CLEAR_FORM
   publishAction: require('./publish-action'),
 
   // CHECK_IN, ENABLE_CHECK_IN
