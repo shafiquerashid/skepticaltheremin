@@ -45,7 +45,7 @@ var signupUser = function(username, password, cb){
     data: user,
     dataType: 'json',
     success: function(data){
-      window.location.href = "#map";
+      window.location.href = "#create-race";
       if(cb){
         cb(data);
       }
@@ -71,7 +71,7 @@ var login = function(username, password, cb){
     data: user,
     dataType: 'json',
     success: function(data){
-      window.location.href = "#map";
+      window.location.href = "#create-race";
       if(cb){
         cb(data);
       }
