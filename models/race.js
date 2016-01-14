@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var raceSchema = new mongoose.Schema({
-	race_id: Number,
-	creator: Number,
+	race_id: Number, //unique identifier
+	creator: String,
 	waymarks: Array,
 	start_location: {
 		type: [Number],

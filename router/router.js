@@ -65,10 +65,11 @@ router.route('/users')
 
 
 router.route('/users/:user_id/races')
+
   //create new race  
   .post(function (req, res) {
     var newRace = {
-      creator: parseInt(req.params.user_id),
+      creator: req.params.user_id,
       waymarks: req.body.waymarks,
       start_location: req.body.waymarks[0],
       racers: [], //users participating in race
