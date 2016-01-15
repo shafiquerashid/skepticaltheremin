@@ -1,14 +1,15 @@
-'use strict';
+// 'use strict';
 
 var _ = require('lodash');
 var React = require('react');
 var ReactDOM = require('react-dom');
 // var Component = require('react').Component;
-var bindActionCreators = require('redux').bindActionCreators;
-var connect = require('react-redux').connect;
+var { bindActionCreators } = require('redux');
+var { connect } = require('react-redux');
+// import {Nav, Main} from '../components';
 
-var Nav = require('../components').Nav
-var Main = require('../components').Main;
+var Nav = require('../components/Nav');
+var Main = require('../components/Main');
 var actions = require('../actions');
 
 var View = {
@@ -17,6 +18,7 @@ var View = {
   CreatedRaceList: require('../components').CreatedRaceList,
   Summary: require('../components').Summary
 };
+
 
 var App = React.createClass({
 
@@ -30,15 +32,15 @@ var App = React.createClass({
 
 
   render: function() {
-    if(this.props.view === 'Create'){
+
+    // if(this.props.view === 'Create'){
       return (
-        <Nav links={this.props.view}/>
-        <View[Create]
-          publishAction={this.props.publishAction}
-          newRace={this.props.newRace}
-          />
+        <div>
+          Hello world!
+          <Nav links={this.props.view}/>
+        </div>
+
       );
-    }
     // else if (this.props.view === 'Race'){
     //   return (
     //     <Nav links={this.props.view}/>
@@ -54,7 +56,7 @@ var App = React.createClass({
     //     <Nav links={this.props.view}/>
     //     < View[Summary]  />
     //   );
-    // }
+    // }        <Nav links={this.props.view}/>
 
   }
 });

@@ -7,10 +7,13 @@ var Main = require('./components').Main;
 var configureStore = require('./store/configureStore');
 
 var store = configureStore();
+store.subscribe(() => {
+  console.log(store.getState());
+})
 
 render(
  <Provider store={store}>
   < Main />
- </Provider>
-
-)
+ </Provider>,
+ document.getElementById('app')
+);
