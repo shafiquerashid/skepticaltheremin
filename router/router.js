@@ -75,7 +75,8 @@ router.route('/users/:user_id/races')
       racers: [], //users participating in race
       results: [], // result of race
       date: req.body.date,
-      time: req.body.time
+      time: req.body.time,
+      name: req.body.name
     }
 
     console.log('newRace',newRace);
