@@ -15,6 +15,3 @@ var reducers = {
 
 module.exports = combineReducers(reducers);
 
-
-
-
