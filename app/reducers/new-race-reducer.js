@@ -21,12 +21,16 @@ function raceReducer(state, action){
   switch(action.type){
     case CENTER_MAP:
       return _.extend({}, state, {
-        latitude: action.payload.latitude,
-        longitude: action.payload.longitude,
+        newRace: {
+          latitude: action.payload.latitude,
+          longitude: action.payload.longitude,  
+        }
       });
     case ADD_WAYPOINT:
       return _.extend({}, state, {
-        waymarks: state.waymarks.concat([action.payload.waymark])
+        newRace:{
+          waymarks: state.waymarks.concat([action.payload.waymark])  
+        }
       });
     case PUBLISH_RACE://click the submit button
       return _.extend({}, initial);

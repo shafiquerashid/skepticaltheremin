@@ -1,8 +1,7 @@
 'use strict';
 
-<<<<<<< HEAD
+
 var type = require('../constants').action.type;
-=======
 var http = require('request-promise');
 
 var store = require('../store');
@@ -20,10 +19,10 @@ function centerMap(payload){
 };
 
 function addWayPoint(payload){
-  return {
+   return {
     type: ADD_WAYPOINT,
     payload: payload
-  }
+  };
 }
 
 function clearForm(){
@@ -33,32 +32,32 @@ function clearForm(){
 }
 
 // TODO LATER
-// function publishRace(payload){
-//   // make ajax call to server with Post
-//   //
-//   var id = store.getState().user.id;
-//   var options = {
-//       method: 'POST',
-//       uri: '/users/' + id + '/races',
-//       body: payload,
-//       json: true // Automatically stringifies the body to JSON
-//   };
+function publishRace(payload){
+  // make ajax call to server with Post
+  //
+  var id = store.getState().user.id;
+  var options = {
+      method: 'POST',
+      uri: '/users/' + id + '/races',
+      body: payload,
+      json: true // Automatically stringifies the body to JSON
+  };
 
 
-//   http(options)
-//       .then(function (parsedBody) {
-//           dispatch(clearForm());
-//       })
-//       .catch(function (err) {
-//           // POST failed...
-//       });
-//   // then,
-//     // on success, extend current state
-//     // on error, leave current state
-// }
+  http(options)
+      .then(function (parsedBody) {
+          dispatch(clearForm());
+      })
+      .catch(function (err) {
+          // POST failed...
+      });
+  // then,
+    // on success, extend current state
+    // on error, leave current state
+}
 
 module.exports = {
   centerMap: centerMap,
   addWayPoint: addWayPoint
 };
->>>>>>> add publish-actions
+// add publish actions

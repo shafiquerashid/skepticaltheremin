@@ -14,7 +14,8 @@ var raceSchema = new mongoose.Schema({
 	racers: Array,
 	results: Array,
 	date: String,
-	time: String
+	time: String,
+	name: String
 });
 
 raceSchema.index({ start_location : '2dsphere' });
