@@ -9,6 +9,10 @@ function checkInReducer (state, action) {
 				activeRace:{
 					checkedIn: true
 				}
-			})
+			});
+		default:
+			return state;
 	}
 }
+
+module.exports = checkInReducer;

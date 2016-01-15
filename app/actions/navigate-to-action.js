@@ -1,6 +1,8 @@
 'use strict';
 
-var type = require('../constants').action.type;
+var http = require('request-promise');
+var createdRacesAction = require('./index.js').createdRacesAction
+
 var NAV_CREATE_RACE = require('../constants').action.NAV_CREATE_RACE;
 var NAV_CREATED_RACES = require('../constants').action.NAV_CREATED_RACES;
 var NAV_RACE = require('../constants').action.NAV_RACE;
@@ -16,6 +18,20 @@ var navigateCreateRace = function () {
 }
 
 var navigateCreatedRaces = function () {
+	var options = {
+		method: 'GET',
+		uri: '/users/' + state.user._id + '/races'
+	}
+
+	http(options)
+		.then(function (parsedBody) {
+			dispatch(createdRacesAction.createdRacesSuccess(parsedBody));
+		})
+		.catch(function(error){
+			console.log('error getting created races || navigate-to-action.js',error);
+			return error;
+		})
+
 	return {
 		type: NAV_CREATED_RACES
 	}
@@ -31,4 +47,11 @@ var navSummary = function () {
 	return {
 		type: NAV_SUMMARY
 	}
+}
+
+module.exports = {
+	navigateCreateRace: navigateCreateRace,
+	navigateCreatedRaces: navigateCreatedRaces,
+	navigateRace: navigateRace,
+	navSummary: navSummary
 }

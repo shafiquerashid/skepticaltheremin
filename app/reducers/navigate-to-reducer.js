@@ -31,4 +31,4 @@ function navigateReducer (state, action) {
 	}
 }
 
-
+module.exports = navigateReducer;

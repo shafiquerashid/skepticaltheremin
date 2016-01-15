@@ -2,11 +2,19 @@
 
 var combineReducers = require('redux').combineReducers;
 
-var rootReducer = combineReducers({
+var reducers = {
   user: require('./user-reducer'),
   newRace: require('./new-race-reducer'),
   activeRace: require('./active-race-reducer'),
-  views: require('./ui-reducer')
-});
+  createdRacesReducer: require('./created-races-reducer'),
+  navigateToReducer: require('./navigate-to-reducer'),
+  checkInReducer: require('./check-in-reducer'),
+  locationChangeReducer: require('./location-change-reducer'),
+  timerReducer: require('./timer-reducer')
+};
 
-module.exports = rootReducer
+module.exports = combineReducers(reducers);
+
+
+
+
