@@ -113,7 +113,7 @@ var MapApp = React.createClass({
   },
 
   render(){
-    if(this.state.loggedin){
+    // if(this.state.loggedin){
       return (
 
         <div>
@@ -138,9 +138,9 @@ var MapApp = React.createClass({
         </div>
 
       );
-    } else {
-      return <Signup loginUser={this.loginUser}/>
-    }
+    // } else {
+    //   return <Signup loginUser={this.loginUser}/>
+    // }
   }
 
 });

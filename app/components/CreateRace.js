@@ -116,7 +116,8 @@ var CreateRace = React.createClass({
   },
 
   render(){
-    if(this.state.loggedin){
+    //commenting out legacy auth code which does not work
+    //if(this.state.loggedin){
       return (
 
         <div>
@@ -135,18 +136,11 @@ var CreateRace = React.createClass({
             center={this.state.center} 
             loginUser={this.loginUser}
             user={this.state.user} />
-
-           <LocationList locations={this.state.favorites}
-            activeLocationAddress={this.state.currentAddress} 
-            onClick={this.searchForAddress} />
-
-        
         </div>
-
       );
-    } else {
-      return <Signup loginUser={this.loginUser}/>
-    }
+    // } else {
+    //   return <Signup loginUser={this.loginUser}/>
+    // }
   }
 
 });

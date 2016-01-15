@@ -261,15 +261,6 @@ var Map = React.createClass({
         <p>Loading......</p>
         <div id="map"></div>
       </div>
-      <form  onSubmit={this.handleSubmit} className="form-group list-group col-xs-12 col-md-6 col-md-offset-3" >
-        <label htmlFor="location">Location:</label>
-        <input type="text" className="form-control" id="location" onChange={this.handleLocationChange} value={this.state.location} placeholder="Location" />
-        <label htmlFor="comment">Comment:</label>
-        <textarea value={this.state.comment} onChange={this.handleCommentChange} className="form-control" rows="10" id="comment"></textarea>
-        <div>
-          <input type="submit" className="btn btn-primary" value="Save Breadcrumb" />
-        </div>
-      </form>
       </div>
     );
   }
