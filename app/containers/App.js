@@ -6,17 +6,23 @@ var ReactDOM = require('react-dom');
 var { bindActionCreators } = require('redux');
 var { connect } = require('react-redux');
 
-var Nav = require('../components/Nav');
+var CREATE = require('../constants').view.CREATE;
+var RACE = require('../constants').view.RACE;
+var SUMMARY = require('../constants').view.SUMMARY;
+
+var NavBar = require('../components/NavBar');
 var CreateRace = require('../components/CreateRace');
 var actions = require('../actions');
 
-var View = {
-  Create: require('../components').CreateRace,
-  Race: require('../components').Race, // TO DO: MAKE THIS
-  CreatedRaceList: require('../components').CreatedRaceList,
-  Summary: require('../components').Summary
-};
 
+var Create = require('../components/CreateRace');
+var Race = require('../components/Race'); // TO DO: MAKE THIS
+var CreatedRaceList = require('../components/CreatedRaceList');
+var Summary = require('../components/Summary')
+
+var contextType = {
+  redux: React.PropTypes.object
+}
 
 var App = React.createClass({
 
@@ -30,15 +36,28 @@ var App = React.createClass({
 
 
   render: function() {
-
+    console.log('APP ID',this.props.user._id)
+    // {currentView}
     // if(this.props.view === 'Create'){
+    //
+    var currentView;
+
+    switch(this.props.view){
+      case CREATE:
+        currentView = (<CreateRace {...this.props} />);
+      case RACE:
+        currentView = (<Race {...this.props} />);
+      case SUMMARY:
+        currentView = (<Summary {...this.props} />);
+      case CREATED_RACE_LIST:
+        currentView = (<CreatedRaceList {...this.props} />);
+    }
+
+
       return (
         <div>
-          <Nav links={this.props.view}/>
-          <CreateRace
-            newRace={this.props.newRace}
-            action={this.props.publishAction}
-          />
+          <NavBar userId={this.props.user._id} navigateToAction={this.props.navigateToAction}/>
+          {currentView}
         </div>
 
       );
@@ -58,7 +77,13 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch)
+  // console.log("THE MAPPED ACTIONS", actions);
+  var actionsObj = {}
+  for(var key in actions) {
+    actionsObj[key] = bindActionCreators(actions[key], dispatch);
+  }
+  console.log('actionsObj',actionsObj);
+  return actionsObj;
 }
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(App);

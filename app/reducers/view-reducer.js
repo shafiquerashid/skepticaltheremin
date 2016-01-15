@@ -16,21 +16,13 @@ function viewReducer (state, action) {
   state = state || CREATE;
 	switch (action.type) {
 		case NAV_CREATE_RACE:
-			return _.extend({}, state, {
-				view: CREATE
-			});
+			return CREATE;
 		case NAV_CREATED_RACES:
-			return _.extend({}, state, {
-				view: CREATED_RACE_LIST
-			});
+			return CREATED_RACE_LIST
 		case NAV_RACE:
-			return _.extend({}, state, {
-				view: RACE
-			});
+			return RACE;
 		case NAV_SUMMARY:
-			return _.extend({}, state, {
-				view: SUMMARY
-			});
+			return SUMMARY
 		default:
 			return state;
 	}

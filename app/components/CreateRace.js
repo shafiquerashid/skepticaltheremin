@@ -131,14 +131,15 @@ var CreateRace = React.createClass({
   },
 
   handleHeaderClick(e){
-    e.preventDefault();
-    centerMap();
+    navigator.geolocation.getCurrentPosition(function(pos){
+      console.log(pos);
+      console.log(centerMap(pos));
+    })
   },
 
   render(){
 
     console.log(this.props);
-    console.log(centerMap, addWayPoint, publishRace);
     return (
 
       <div>

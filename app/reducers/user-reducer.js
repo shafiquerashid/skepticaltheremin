@@ -10,7 +10,7 @@ var SELECT_RACE = require('../constants').action.SELECT_RACE;
 var LOCATION_CHANGE = require('../constants').action.LOCATION_CHANGE;
 
 var initial = {
-    id: null,
+    _id: null,
     isLoggedIn: false,
     currentLocation: null,
     availableRaces: [],
