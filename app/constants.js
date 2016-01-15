@@ -22,7 +22,7 @@ module.exports = {
     CLEAR_FORM: 'CLEAR_FORM',
     SELECT_RACE: 'SELECT_RACE',
     CREATED_RACES_SUCCESS: 'CREATED_RACES_SUCCESS'
-  }
+  },
   view: {
     CREATE: 'CREATE',
     RACE: 'RACE',

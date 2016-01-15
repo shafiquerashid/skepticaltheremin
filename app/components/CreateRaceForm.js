@@ -1,4 +1,5 @@
 var React = require('react');
+var publishActions = require('../actions').publishAction;
 var CreateRaceForm = React.createClass({
 
   getInitialState(){
@@ -26,7 +27,15 @@ var CreateRaceForm = React.createClass({
 
   handleSubmit(e){
     e.preventDefault();
-    console.log(e);
+    var payload = {
+      name: e.target[0].value,
+      date: e.target[1].value,
+      time: e.target[2].value
+    }
+
+    publishActions.publishRace(payload);
+    console.log('target 2 is', e.target[2].value);
+    console.log("STATE IS", this.state);
     //e.target is array of internal inputs
     //e.g. e.target[0].value === "Race Name" by default
     //dispatch(index.publishAction.publishRace({stuff}));

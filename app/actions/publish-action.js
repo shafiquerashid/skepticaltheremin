@@ -2,10 +2,9 @@
 
 
 var type = require('../constants').action.type;
-var http = require('request-promise');
-
-var store = require('../store');
-
+var http = require('rest');
+var _ = require('lodash');
+var store = require('../store/configureStore.js');
 var CENTER_MAP = require('../constants').action.CENTER_MAP;
 var ADD_WAYPOINT = require('../constants').action.ADD_WAYPOINT;
 var PUBLISH_RACE = require('../constants').action.PUBLISH_RACE;
@@ -19,6 +18,10 @@ function centerMap(payload){
 };
 
 function addWayPoint(payload){
+  var currentState = this.state.waymarks;
+  currentState.push(payload.address);
+  payload.address = currentState
+
    return {
     type: ADD_WAYPOINT,
     payload: payload
@@ -39,7 +42,8 @@ function publishRace(payload){
   var options = {
       method: 'POST',
       uri: '/users/' + id + '/races',
-      body: payload,
+      //we will need to add logic to make sure wayPoints contains data before sending
+      body: _.extend(payload, {waymarks: this.state.waymarks}),
       json: true // Automatically stringifies the body to JSON
   };
 
@@ -58,6 +62,7 @@ function publishRace(payload){
 
 module.exports = {
   centerMap: centerMap,
-  addWayPoint: addWayPoint
+  addWayPoint: addWayPoint,
+  publishRace, publishRace
 };
 // add publish actions

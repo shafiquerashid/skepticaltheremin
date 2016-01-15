@@ -8,10 +8,11 @@ var SearchUser = require('./SearchUser');
 var helpers = require('../utils/helpers');
 var Signup = require('./Signup');
 var CreateRaceForm = require('./CreateRaceForm');
+var publishActions = require('../actions').publishAction;
 
 
 var CreateRace = React.createClass({
-
+  //getInitialState no longer needed because REDUX
   getInitialState(){
 
     // Extract the favorite locations from local storage
@@ -35,6 +36,7 @@ var CreateRace = React.createClass({
   },
 
   loginUser(username){
+    //legacy code, will need to revisit
     console.log("logged in:", username);
     this.setState({user: username, loggedin: true}); 
     helpers.getAllBreadCrumbs(username, function(data){
@@ -50,33 +52,40 @@ var CreateRace = React.createClass({
 
   },
 
-  addToFavBreadCrumbs(id, lat, lng, timestamp, details, location) {
-    var favorites = this.state.favorites;
-    var breadcrumb = {
-      id: id,
-      lat: lat,
-      lng: lng,
-      timestamp: timestamp,
-      details: details,
-      address: this.state.currentAddress,
-      location: location
-    };
-    favorites.push(breadcrumb);
+  //Legacy code - no longer need
+  // addToFavBreadCrumbs(id, lat, lng, timestamp, details, location) {
+  //   var favorites = this.state.favorites;
+  //   var breadcrumb = {
+  //     id: id,
+  //     lat: lat,
+  //     lng: lng,
+  //     timestamp: timestamp,
+  //     details: details,
+  //     address: this.state.currentAddress,
+  //     location: location
+  //   };
+  //   favorites.push(breadcrumb);
 
-    this.setState({
-      favorites: favorites
-    });
+  //   this.setState({
+  //     favorites: favorites
+  //   });
 
-    helpers.addBreadCrumb(this.state.user, breadcrumb, function(data){
-      console.log(data);
-    });
-    localStorage.favorites = JSON.stringify(favorites);
+  //   helpers.addBreadCrumb(this.state.user, breadcrumb, function(data){
+  //     console.log(data);
+  //   });
+  //   localStorage.favorites = JSON.stringify(favorites);
 
-  },
+  // },
 
   searchForAddress(address, cb, recenter){
     var self = this;
-    console.log("search called", address);
+
+    var addressArray = address.split(' ');
+    console.log("in searchForAddress, address is", );
+    publishActions.addWayPoint({
+      address: [addressArray[0], addressArray[1]]
+    });
+
 
     // We will use GMaps' geocode functionality,
     // which is built on top of the Google Maps API
