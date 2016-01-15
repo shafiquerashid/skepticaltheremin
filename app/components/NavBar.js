@@ -4,9 +4,11 @@ var React = require('react');
 
 var NavBar = React.createClass({
 	render: function () {
-    var navCreatedRaces = function(){
+    var navCreatedRaces = function(e){
+      console.log(e);
       this.props.navigateToAction.navigateCreatedRaces(this.props.userId);
     }.bind(this);
+
 		return (
 			<div className="nav-bar">
 				<ul>

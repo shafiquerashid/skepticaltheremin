@@ -6,6 +6,7 @@ var ReactDOM = require('react-dom');
 var { bindActionCreators } = require('redux');
 var { connect } = require('react-redux');
 
+var CREATED_RACE_LIST = require('../constants').view.CREATED_RACE_LIST;
 var CREATE = require('../constants').view.CREATE;
 var RACE = require('../constants').view.RACE;
 var SUMMARY = require('../constants').view.SUMMARY;
@@ -33,34 +34,51 @@ var App = React.createClass({
   //   activeRace: PropTypes.object,
   //   newRace: PropTypes.object
   // },
-
+  // willRecieveProps(){
+  //   this.setState();
+  // }
 
   render: function() {
     console.log('APP ID',this.props.user._id)
     // {currentView}
     // if(this.props.view === 'Create'){
     //
-    var currentView;
+    var currentView = null;
 
     switch(this.props.view){
       case CREATE:
-        currentView = (<CreateRace {...this.props} />);
+        return (
+          <div>
+            <NavBar userId={this.props.user._id} navigateToAction={this.props.navigateToAction}/>
+            <CreateRace {...this.props} />
+          </div>
+        );
+
       case RACE:
-        currentView = (<Race {...this.props} />);
+        return (
+          <div>
+            <NavBar userId={this.props.user._id} navigateToAction={this.props.navigateToAction}/>
+            <Race {...this.props} />
+          </div>
+        );
       case SUMMARY:
-        currentView = (<Summary {...this.props} />);
+        return (
+          <div>
+            <NavBar userId={this.props.user._id} navigateToAction={this.props.navigateToAction}/>
+            <Summary {...this.props} />
+          </div>
+        );
       case CREATED_RACE_LIST:
-        currentView = (<CreatedRaceList {...this.props} />);
+        return (
+          <div>
+            <NavBar userId={this.props.user._id} navigateToAction={this.props.navigateToAction}/>
+            <CreatedRaceList {...this.props} />;
+          </div>
+        );
     }
-
-
-      return (
-        <div>
-          <NavBar userId={this.props.user._id} navigateToAction={this.props.navigateToAction}/>
-          {currentView}
-        </div>
-
-      );
+    console.log('CUrrentView', currentView);
+    console.log('VIEW', this.props.view);
+    window.currentView = currentView;
   }
 });
 
