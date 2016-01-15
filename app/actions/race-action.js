@@ -25,3 +25,9 @@ var cancelRace = function () {
 		type
 	}
 }
+
+module.exports = {
+	startRace: startRace,
+	finishRace: finishRace,
+	cancelRace: cancelRace
+}
