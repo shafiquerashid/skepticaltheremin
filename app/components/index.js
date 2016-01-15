@@ -1,17 +1,19 @@
 'use strict';
 
-module.exports = {
+var components = {
   Main: require('./Main'),
   CreateRace: require('./CreateRace'),
-  CreateFormRace: require('./CreateFormRace'),
+  CreateRaceForm: require('./CreateRaceForm'),
   CurrentLocation: require('./CurrentLocation'),
   Login: require('./Login'),
   Home: require('./Home'),
   LocationItem: require('./LocationItem'),
   LocationList: require('./LocationList'),
   Map: require('./Map'),
-  // MapApp: require('./MapApp'),
+  Nav: require('./Nav'),
   Search: require('./Search'),
   SearchUser: require('./SearchUser'),
   Signup: require('./Signup')
-}
+};
+
+module.exports = components;
