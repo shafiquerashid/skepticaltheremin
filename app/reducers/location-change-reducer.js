@@ -10,5 +10,9 @@ function locationChangeReducer (state, action) {
 					currentLocation: action.payload.currentLocation	
 				}
 			});
+		default:
+			return state;
 	}
 }
+
+module.exports = locationChangeReducer;

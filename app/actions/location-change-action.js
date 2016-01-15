@@ -1,6 +1,5 @@
 'use strict';
 
-var type = require('../constants').action.type;
 var LOCATION_CHANGE = require('../constants').action.LOCATION_CHANGE;
 
   // LOCATION_CHANGE
@@ -14,4 +13,8 @@ var locationChange = function (payload) {
 		type: LOCATION_CHANGE,
 		payload: payload
 	}
+}
+
+module.exports = {
+	locationChange: locationChange
 }
