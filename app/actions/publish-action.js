@@ -12,6 +12,7 @@ var PUBLISH_RACE = require('../constants').action.PUBLISH_RACE;
 
 // payload looks like: {latitude, longitude}
 function centerMap(payload){
+  console.log('got to center Map'); //TODO REMOVE THIS
   return {
     type: CENTER_MAP,
     payload: payload
@@ -58,6 +59,7 @@ function publishRace(payload){
 
 module.exports = {
   centerMap: centerMap,
-  addWayPoint: addWayPoint
+  addWayPoint: addWayPoint,
+  publishRace: publishRace
 };
 // add publish actions

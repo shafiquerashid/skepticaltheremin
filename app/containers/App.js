@@ -3,13 +3,11 @@
 var _ = require('lodash');
 var React = require('react');
 var ReactDOM = require('react-dom');
-// var Component = require('react').Component;
 var { bindActionCreators } = require('redux');
 var { connect } = require('react-redux');
-// import {Nav, Main} from '../components';
 
 var Nav = require('../components/Nav');
-var Main = require('../components/Main');
+var CreateRace = require('../components/CreateRace');
 var actions = require('../actions');
 
 var View = {
@@ -36,28 +34,14 @@ var App = React.createClass({
     // if(this.props.view === 'Create'){
       return (
         <div>
-          Hello world!
           <Nav links={this.props.view}/>
+          <CreateRace
+            newRace={this.props.newRace}
+            action={this.props.publishAction}
+          />
         </div>
 
       );
-    // else if (this.props.view === 'Race'){
-    //   return (
-    //     <Nav links={this.props.view}/>
-    //     < View[Race]  />
-    //   );
-    // } else if (this.props.view === 'CreatedRaceList'){
-    //   return (
-    //     <Nav links={this.props.view}/>
-    //     < View[CreatedRaceList]  />
-    //   );
-    // } else if (this.props.view === 'Summary'){
-    //   return (
-    //     <Nav links={this.props.view}/>
-    //     < View[Summary]  />
-    //   );
-    // }        <Nav links={this.props.view}/>
-
   }
 });
 
