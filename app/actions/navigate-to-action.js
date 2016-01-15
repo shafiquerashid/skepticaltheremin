@@ -1,6 +1,6 @@
 'use strict';
 
-var http = require('request-promise');
+var http = require('rest');
 var createdRacesAction = require('./index.js').createdRacesAction
 
 var NAV_CREATE_RACE = require('../constants').action.NAV_CREATE_RACE;

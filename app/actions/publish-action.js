@@ -2,9 +2,9 @@
 
 
 var type = require('../constants').action.type;
-var http = require('request-promise');
+var http = require('rest');
 
-var store = require('../store');
+var store = require('../store/configureStore.js');
 
 var CENTER_MAP = require('../constants').action.CENTER_MAP;
 var ADD_WAYPOINT = require('../constants').action.ADD_WAYPOINT;

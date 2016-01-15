@@ -4,6 +4,7 @@ var Home = require('../components/Home');
 var Login = require('../components/Login');
 var Signup = require('../components/Signup');
 var CreateRace = require("../components/CreateRace")
+var NavBar = require("../components/NavBar")
 var Router = require('react-router');
 var Route = Router.Route;
 var IndexRoute = Router.IndexRoute;
@@ -18,5 +19,6 @@ module.exports = (
     <Route name="home" path="home" component={Home} />
     <Route name="create-race" path="create-race" component={CreateRace} />
     <Route name="signup" path="signup" component={Signup} />
+    <Route name="navbar" path="navbar" component={NavBar} />
   </Route>
 );
