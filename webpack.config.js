@@ -7,7 +7,7 @@ module.exports = {
   // the top-level file that then `requires` some other files, which then
   // `require` some other files, etc. Webpack pulls these all into a modularized
   // bundle.
-  entry: './app/app.js',
+  entry: './app/index.js',
 
   // `output` is an object with options for the bundle that Webpack creates
   // out of your source files.
@@ -37,7 +37,7 @@ module.exports = {
     // when Webpack loads them with a `require` statement. A lot of the magic of
     // Webpack is done using loaders. In this example, there's one loader declared
     // to use Babel to transform ES6 and JSX into ES5.
-    // 
+    //
     // `loaders` is an array of objects.
     loaders: [
       {
@@ -55,7 +55,7 @@ module.exports = {
         // this object requires 'babel-loader' to do the transformation.
         // We could actually apply multiple loaders here by using the property `loaders`
         // instead of `loader`, which takes an array of loader names.
-        // 
+        //
         // When you're declaring loaders in this field, you can leave off the `-loader` part
         // of the package name. Webpack will interpret `babel` as `babel-loader` here,
         // `coffee` as `coffee-loader`, etc. But you can also just write out `babel-loader`,

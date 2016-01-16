@@ -14,8 +14,6 @@ var initial =  {
     longitude: -122.4089664
   };
 
-// switch statement thing
-
 function raceReducer(state, action){
   state = state || initial;
   switch(action.type){
@@ -23,19 +21,19 @@ function raceReducer(state, action){
       return _.extend({}, state, {
         newRace: {
           latitude: action.payload.latitude,
-          longitude: action.payload.longitude,  
+          longitude: action.payload.longitude,
         }
       });
     case ADD_WAYPOINT:
       return _.extend({}, state, {
         newRace:{
-          waymarks: state.waymarks.concat([action.payload.waymark])  
+          waymarks: state.waymarks.concat([action.payload.waymark])
         }
       });
     case PUBLISH_RACE://click the submit button
       return _.extend({}, initial);
     default:
-      return inital;
+      return initial;
   }
 }
 

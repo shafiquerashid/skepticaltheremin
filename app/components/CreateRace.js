@@ -1,4 +1,5 @@
 var React = require('react');
+var { render } = require('react-dom');
 
 var Search = require('./Search');
 var Map = require('./Map');
@@ -7,10 +8,17 @@ var LocationList = require('./LocationList');
 var SearchUser = require('./SearchUser');
 var helpers = require('../utils/helpers');
 var Signup = require('./Signup');
-var CreateRaceForm = require('./CreateRaceForm');
 
+// Actions
+var { publishAction } = require('../actions');
+var { centerMap, addWayPoint, publishRace } = publishAction;
+
+// Sub-Components
+var CreateRaceForm = require('./CreateRaceForm');
+var watcher = undefined;
 
 var CreateRace = React.createClass({
+
 
   getInitialState(){
 
@@ -35,8 +43,8 @@ var CreateRace = React.createClass({
   },
 
   loginUser(username){
-    console.log("logged in:", username);
-    this.setState({user: username, loggedin: true}); 
+    console.log("logged in:", username);//TODO REMOVE THIS
+    this.setState({user: username, loggedin: true});
     helpers.getAllBreadCrumbs(username, function(data){
       if(data){
         this.setState({favorites: data.pins});
@@ -45,9 +53,16 @@ var CreateRace = React.createClass({
 
   },
 
-  componentDidMount(){
-    // Not sure what this is
+  //ADDED FOR TESTING
+  onlocationChange(e){
+    console.log(e);//TODO REMOVE THIS
+  },
 
+  componentDidMount(){
+    //ADDED FOR TESTING
+    window.navigator.geolocation.getCurrentPosition(function(pos){
+      console.log(pos);
+    })
   },
 
   addToFavBreadCrumbs(id, lat, lng, timestamp, details, location) {
@@ -107,7 +122,7 @@ var CreateRace = React.createClass({
         }
 
         if(cb){
-          cb(results[0].formatted_address); 
+          cb(results[0].formatted_address);
         }
 
       }
@@ -115,38 +130,43 @@ var CreateRace = React.createClass({
 
   },
 
+  handleHeaderClick(e){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      console.log(pos);
+      console.log(centerMap(pos));
+    })
+  },
+
   render(){
-    if(this.state.loggedin){
-      return (
 
-        <div>
-          <h1 className="col-xs-12 col-md-6 col-md-offset-3">Create a Race</h1>
-          <Search onSearch={this.searchForAddress} />
+    console.log(this.props);
+    return (
 
-          <CreateRaceForm />
+      <div>
+        <h1 onMouseOver={this.handleHeaderClick} className="col-xs-12 col-md-6 col-md-offset-3">Create a Race</h1>
+        <Search onSearch={this.searchForAddress} />
 
-          <Map lat={this.state.mapCoordinates.lat}
-            lng={this.state.mapCoordinates.lng}
-            favorites={this.state.favorites}
-            onFavoriteToggle={this.toggleFavorite}
-            onAddToFavBcs={this.addToFavBreadCrumbs}
-            searchAddress={this.searchForAddress}
-            address={this.state.currentAddress} 
-            center={this.state.center} 
-            loginUser={this.loginUser}
-            user={this.state.user} />
+        <CreateRaceForm />
 
-           <LocationList locations={this.state.favorites}
-            activeLocationAddress={this.state.currentAddress} 
-            onClick={this.searchForAddress} />
+        <Map lat={this.state.mapCoordinates.lat}
+          lng={this.state.mapCoordinates.lng}
+          favorites={this.state.favorites}
+          onFavoriteToggle={this.toggleFavorite}
+          onAddToFavBcs={this.addToFavBreadCrumbs}
+          searchAddress={this.searchForAddress}
+          address={this.state.currentAddress}
+          center={this.state.center}
+          loginUser={this.loginUser}
+          user={this.state.user} />
 
-        
-        </div>
+         <LocationList locations={this.state.favorites}
+          activeLocationAddress={this.state.currentAddress}
+          onClick={this.handleHeaderClick} />
 
-      );
-    } else {
-      return <Signup loginUser={this.loginUser}/>
-    }
+
+      </div>
+
+    );
   }
 
 });

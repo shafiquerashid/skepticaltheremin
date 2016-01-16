@@ -4,7 +4,7 @@
 var type = require('../constants').action.type;
 var http = require('rest');
 
-var store = require('../store/configureStore.js');
+var store = require('../store/configureStore');
 
 var CENTER_MAP = require('../constants').action.CENTER_MAP;
 var ADD_WAYPOINT = require('../constants').action.ADD_WAYPOINT;
@@ -12,6 +12,7 @@ var PUBLISH_RACE = require('../constants').action.PUBLISH_RACE;
 
 // payload looks like: {latitude, longitude}
 function centerMap(payload){
+  console.log('got to center Map'); //TODO REMOVE THIS
   return {
     type: CENTER_MAP,
     payload: payload
@@ -58,6 +59,7 @@ function publishRace(payload){
 
 module.exports = {
   centerMap: centerMap,
-  addWayPoint: addWayPoint
+  addWayPoint: addWayPoint,
+  publishRace: publishRace
 };
 // add publish actions

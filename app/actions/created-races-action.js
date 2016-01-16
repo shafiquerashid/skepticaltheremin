@@ -5,7 +5,7 @@ var SELECT_RACE = require('../constants').action.SELECT_RACE;
 
 //CREATED_RACES_SUCCESS, //SELECT_RACE
 /*
-[{Race}, {Race}]
+[{Race}, {Race}] //all races, all the time time
 */
 var createdRacesSuccess = function (payload) {
 	return {
@@ -22,7 +22,7 @@ var selectRace = function (payload) {
 		type: SELECT_RACE,
 		payload: payload
 	}
-} 
+}
 
 module.exports = {
 	createdRacesSuccess: createdRacesSuccess,

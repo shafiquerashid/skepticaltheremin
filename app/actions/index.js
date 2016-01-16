@@ -3,7 +3,7 @@
 module.exports = {
   //LOGIN, LOGOUT
   authAction: require('./auth-action'), //DONE
-  
+
   //NAV_CREATE_RACE, NAV_CREATED_RACES,
   //NAV_SUMMARY, NAV_RACE
   navigateToAction: require('./navigate-to-action'), //DONE
