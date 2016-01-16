@@ -76,9 +76,6 @@ var App = React.createClass({
           </div>
         );
     }
-    console.log('CUrrentView', currentView);
-    console.log('VIEW', this.props.view);
-    window.currentView = currentView;
   }
 });
 
